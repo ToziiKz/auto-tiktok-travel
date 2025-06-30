@@ -22,4 +22,3 @@ jobs:
           TIKTOK_APP_ID: ${{ secrets.TIKTOK_APP_ID }}
           TIKTOK_SECRET: ${{ secrets.TIKTOK_SECRET }}
         run: python main.py
-create workflow file
