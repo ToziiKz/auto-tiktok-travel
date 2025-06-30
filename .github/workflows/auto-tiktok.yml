@@ -13,7 +13,25 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install -r requirements.txt
-      - name: Generate & Post
+      - name: Generate idea (GPT)
+        env: { OPENAI_KEY: ${{ secrets.OPENAI_KEY }} }
+        run: python main.py idea
+
+      - name: Gen video Runway
+        env:
+          RUNWAY_KEY:      ${{ secrets.RUNWAY_KEY }}
+        run: python main.py video
+
+      - name: Merge audio + ffmpeg
+        run: python main.py merge
+
+      - name: Upload to TikTok
+        env:
+          TIKTOK_APP_ID:   ${{ secrets.TIKTOK_APP_ID }}
+          TIKTOK_SECRET:   ${{ secrets.TIKTOK_SECRET }}
+          TIKTOK_TOKEN:    ${{ secrets.TIKTOK_TOKEN }}   # on en parle ci-dessous
+        run: python main.py upload
+
         env:
           OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
           RUNWAY_KEY: ${{ secrets.RUNWAY_KEY }}
